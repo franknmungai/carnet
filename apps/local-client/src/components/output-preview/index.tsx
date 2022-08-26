@@ -9,13 +9,23 @@ interface PreviewProps {
 const html = `
     <html>
       <head>
-        <style>html { background-color: white; }</style>
-        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
-        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+        <style>html { background-color: rgba(240, 240, 240); font-family: Consolas } body { width: '100%' } </style>
+      <script src="https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js"></script>
+      <script>
+        async function main() {
+          let pyodide = await loadPyodide({
+            indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.20.0/full/',
+          });
+          console.log(
+            pyodide.runPython("print('Hello, world from the browser!')")
+          );
+          window.pyodide = pyodide;
+        }
+        main();
+      </script>
       </head>
       <body>
         <div id="root"></div>
-        <py-script>print("Hello world!")</py-script>
         <script>
           const handleError = (err) => {
             const root = document.querySelector('#root');
@@ -23,44 +33,71 @@ const html = `
             console.error(err);
           };
 
-          // window.addEventListener('error', (event) => {
-          //   event.preventDefault();
-          //   handleError(event.error);
-          // });
+          window.addEventListener('error', (event) => {
+            event.preventDefault();
+            handleError(event.error);
+          });
 
-          // window.addEventListener('message', (event) => {
-          //   try {
-          //     eval(event.data);
-          //   } catch (err) {
-          //     handleError(err);
-          //   }
-          // }, false);
+          window.addEventListener('message', (event) => {
+            try {
+              console.log('code -> ' + event.data);
+              console.log(window.pyodide.runPython(event.data));
+
+            } catch (err) {
+              handleError(err);
+            }
+          }, false);
         </script>
       </body>
     </html>
   `;
 
-const Preview: React.FC<PreviewProps> = ({ code, err }) => {
+const OutputPreview: React.FC<PreviewProps> = ({ code, err }) => {
   const iframe = useRef<any>();
 
-  useEffect(() => {
-    iframe.current.srcdoc = html;
-    setTimeout(() => {
-      iframe.current.contentWindow.postMessage(code, '*');
-    }, 50);
-  }, [code]);
+  // useEffect(() => {
+  //   iframe.current.srcdoc = html;
+  //   setTimeout(() => {
+  //     iframe.current.contentWindow.postMessage(code, '*');
+  //   }, 50);
+  // }, [code]);
 
   return (
     <div className="preview-wrapper">
       <iframe
         title="preview"
         ref={iframe}
-        sandbox="allow-scripts"
-        srcDoc={html}
+        sandbox="allow-scripts allow-modals"
+        srcDoc={`
+        <html>
+          <head>
+           <script src="https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js"></script>
+            <script defer>
+              async function main() {
+                let pyodide = await loadPyodide({
+                  indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.20.0/full/',
+                });
+                console.log(
+                  pyodide.runPython("print('Hello, world from Pyodide!')")
+                );
+                window.pyodide = pyodide;   
+                document.getElementById('root').innerHTML = pyodide.runPython(${code})
+
+              }
+              main();
+            </script>
+          </head>
+          <body>
+              <div id="root"></div>
+          </body>
+          <script>
+          </script>
+        </html>
+        `}
       />
       {err && <div className="preview-error">{err}</div>}
     </div>
   );
 };
 
-export default Preview;
+export default OutputPreview;
