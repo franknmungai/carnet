@@ -1,10 +1,10 @@
-import CodeEditor from './components/code-editor';
+import CodeCell from './components/code-cell';
 
 function App() {
   return (
     <div className="App">
       <h1>Carnet</h1>
-      <CodeEditor onChange={() => {}} initialValue="" />
+      <CodeCell />
     </div>
   );
 }
