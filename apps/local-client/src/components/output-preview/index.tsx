@@ -69,7 +69,12 @@ const OutputPreview: React.FC<PreviewProps> = ({ code, err }) => {
       <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     </head>
     <body>
-        <py-script>${code}</py-script>
+        <py-script output="plot">${code}</py-script>
+        <py-env>
+          - numpy
+          - pandas
+          - matplotlib
+        </py-env>
     </body>
   </html>
   `;
@@ -82,6 +87,8 @@ const OutputPreview: React.FC<PreviewProps> = ({ code, err }) => {
         sandbox="allow-scripts"
         style={{ border: 'none' }}
         srcDoc={srcDoc}
+        width={600}
+        height={300}
       />
       {err && <div className="preview-error">{err}</div>}
     </div>
