@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import './output-preview.css';
 
 interface PreviewProps {
@@ -62,38 +62,26 @@ const OutputPreview: React.FC<PreviewProps> = ({ code, err }) => {
   //   }, 50);
   // }, [code]);
 
+  const srcDoc = `
+  <html>
+    <head>
+      <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+      <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    </head>
+    <body>
+        <py-script>${code}</py-script>
+    </body>
+  </html>
+  `;
+
   return (
     <div className="preview-wrapper">
       <iframe
         title="preview"
         ref={iframe}
-        sandbox="allow-scripts allow-modals"
-        srcDoc={`
-        <html>
-          <head>
-           <script src="https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js"></script>
-            <script defer>
-              async function main() {
-                let pyodide = await loadPyodide({
-                  indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.20.0/full/',
-                });
-                console.log(
-                  pyodide.runPython("print('Hello, world from Pyodide!')")
-                );
-                window.pyodide = pyodide;   
-                document.getElementById('root').innerHTML = pyodide.runPython(${code})
-
-              }
-              main();
-            </script>
-          </head>
-          <body>
-              <div id="root"></div>
-          </body>
-          <script>
-          </script>
-        </html>
-        `}
+        sandbox="allow-scripts"
+        style={{ border: 'none' }}
+        srcDoc={srcDoc}
       />
       {err && <div className="preview-error">{err}</div>}
     </div>

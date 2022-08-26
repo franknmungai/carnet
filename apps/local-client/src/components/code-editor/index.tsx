@@ -1,5 +1,5 @@
-import MonacoEditor, { OnMount } from '@monaco-editor/react';
 import React, { useEffect, useRef, useState } from 'react';
+import MonacoEditor, { OnMount } from '@monaco-editor/react';
 
 interface Props {
   initialValue: string;
@@ -27,8 +27,8 @@ const CodeEditor: React.FC<Props> = ({ initialValue, onChange }) => {
       return acc;
     }, 0);
 
-    const height = numberOfLines * 27;
-    setEditorHeight(height < 80 ? 80 : height);
+    const height = numberOfLines * 25;
+    setEditorHeight(height < 50 ? 50 : height);
   }, [codeEditorValue]);
 
   return (
