@@ -1,8 +1,7 @@
 .preview-wrapper {
   margin: 1rem 0;
   padding: 0.5rem;
-  width: 85%;
-
+  width: 100%;
 }
 
 iframe.preview {
@@ -13,4 +12,5 @@ iframe.preview {
   position: relative;
   height: auto;
   min-height: 100% !important;
+  width: 100%;
 }
