@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { loadPyodide } from 'pyodide';
-import CodeEditor, { CodeEditor2 } from '../code-editor';
+import CodeEditor from '../code-editor';
 import OutputPreview from '../output-preview';
 import './code-cell.css';
 
@@ -21,15 +21,13 @@ def print(value):
   return value
 ${userInput.current}
 `;
-
       setCode(inputCode);
     }
   };
   return (
     <div className="code-cell" onKeyDown={runCode}>
       <div className="container">
-        {/* <CodeEditor onChange={onChangeHandler} initialValue="" /> */}
-        <CodeEditor2 onChange={onChangeHandler} initialValue="" />
+        <CodeEditor onChange={onChangeHandler} initialValue="" />
         <OutputPreview code={code} err={''} />
       </div>
     </div>
