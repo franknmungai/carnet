@@ -17,9 +17,10 @@ const CodeCell = () => {
     if (e.ctrlKey && e.key.toLowerCase() === 'p') {
       e.preventDefault();
       const inputCode = `
-    def print(value):
-      return value
-    ${userInput.current}`;
+def print(value):
+  return value
+${userInput.current}
+`;
 
       setCode(inputCode);
     }
