@@ -9,6 +9,6 @@
   width: 80%;
   /* display: grid;
   place-items: center; */
-  box-shadow: 3px 3px 3px 3px #f0f0f0;
-  background-color: green;
+  box-shadow: 0 0 3px 3px #f0f0f0;
+  border-radius: 0.3rem;
 }

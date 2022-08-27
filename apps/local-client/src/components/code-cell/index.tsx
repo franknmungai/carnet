@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
+import { loadPyodide } from 'pyodide';
 import CodeEditor, { CodeEditor2 } from '../code-editor';
 import OutputPreview from '../output-preview';
 import './code-cell.css';
@@ -8,21 +9,26 @@ const CodeCell = () => {
 
   const [code, setCode] = useState('');
 
-  const onChangeHandler = (input: string) => {
-    userInput.current = input;
-  };
+  const onChangeHandler = useCallback((value: string) => {
+    userInput.current = value;
+  }, []);
 
   const runCode = (e: React.KeyboardEvent) => {
     if (e.ctrlKey && e.key.toLowerCase() === 'p') {
       e.preventDefault();
-      setCode(userInput.current);
+      const inputCode = `
+    def print(value):
+      return value
+    ${userInput.current}`;
+
+      setCode(inputCode);
     }
   };
   return (
     <div className="code-cell" onKeyDown={runCode}>
       <div className="container">
         {/* <CodeEditor onChange={onChangeHandler} initialValue="" /> */}
-        <CodeEditor2/>
+        <CodeEditor2 onChange={onChangeHandler} initialValue="" />
         <OutputPreview code={code} err={''} />
       </div>
     </div>

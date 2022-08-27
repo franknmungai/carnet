@@ -79,28 +79,49 @@ const OutputPreview: React.FC<PreviewProps> = ({ code, err }) => {
   //   </body>
   // </html>
   // `;
-  
-const srcDoc = `
+
+  const srcDoc = `
 <html>
   <head>
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js"></script>
-    <script defer>
-      async function main() {
-        let pyodide = await loadPyodide({
-          indexURL : "https://cdn.jsdelivr.net/pyodide/v0.20.0/full/"
-        });
-        const output = pyodide.runPython(${JSON.stringify(code)})
-        document.getElementById('root').innerHTML = output;
-      };
-      main();
-      
-    </script>
+    <style>
+      #output { font-family: "Consolas"; font-size: 13.5px }
+    </style>
   </head>
 
-  <div id="root"></div>
-</html>
-`
+  <body>
+    <div id="output"></div>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.21.1/full/pyodide.js"></script>
+    <script defer>
+        const output = document.getElementById("output");
+        function addToOutput(s) {
+          output.innerHTML = ">>>  " + s;
+        }
 
+        output.innerHTML = "Initializing..";
+        async function main() {
+          let pyodide = await loadPyodide();
+          output.innerHTML = "Ready!";
+          return pyodide;
+        }
+        let pyodideReadyPromise = main();
+
+        async function evaluatePython() {
+          let pyodide = await pyodideReadyPromise;
+          try {
+            let output = pyodide.runPython(${JSON.stringify(code)});
+            addToOutput(output);
+          } catch (err) {
+            addToOutput(err);
+          }
+        }
+
+        (async () => {
+          evaluatePython();
+        })()
+    </script>
+  </body>
+</html>
+`;
 
   return (
     <div className="preview-wrapper">
@@ -117,6 +138,5 @@ const srcDoc = `
     </div>
   );
 };
-
 
 export default OutputPreview;

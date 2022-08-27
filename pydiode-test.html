@@ -14,30 +14,28 @@
     <br />
     <br />
     <div>Output:</div>
-    <textarea id="output" style="width: 100%;" rows="6" disabled></textarea>
+    <textarea id="output" style="width: 100%" rows="6" disabled></textarea>
 
     <script>
-      const output = document.getElementById("output");
-      const code = document.getElementById("code");
+      const output = document.getElementById('output');
+      const code = document.getElementById('code');
 
       function addToOutput(s) {
-        output.value = ">>>  " + s + "\n";
+        output.value = '>>>  ' + s + '\n';
       }
 
-      output.value = "Initializing...\n";
+      output.value = 'Initializing...\n';
       // init Pyodide
       async function main() {
         let pyodide = await loadPyodide();
-        output.value += "Ready!\n";
+        output.value += 'Ready!\n';
         return pyodide;
       }
       let pyodideReadyPromise = main();
 
-      
       async function evaluatePython() {
-
-      // Polyfill print
-      const inputCode = `
+        // Polyfill print
+        const inputCode = `
         def print(val):
           return val
         ${code.value}
