@@ -1,7 +1,14 @@
-.code-cell .container {
-  margin: 1rem 2.5rem;
-  width: calc(100% - 20px);
+.code-cell {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+} 
+
+.container {
+  width: 80%;
+  /* display: grid;
+  place-items: center; */
+  box-shadow: 3px 3px 3px 3px #f0f0f0;
+  background-color: green;
 }

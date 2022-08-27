@@ -1,11 +1,16 @@
 .preview-wrapper {
-  margin: 0 0.5rem;
-  padding: 0 0.5rem;
-  width: 95%;
-  height: 100%;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  width: 85%;
+
 }
 
 iframe.preview {
-  width: 50vw;
-  height: 30vh;
+  /* height: fit-content;
+  overflow-y: hidden;
+  max-height: 40vh; */
+
+  position: relative;
+  height: auto;
+  min-height: 100% !important;
 }

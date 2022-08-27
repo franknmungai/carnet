@@ -1,3 +1,4 @@
 .code-editor-wrapper {
-  width: calc(100%-10px);
+  width: 85%;
+  margin: 0 auto;
 }

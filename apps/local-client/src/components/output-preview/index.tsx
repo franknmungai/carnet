@@ -62,22 +62,45 @@ const OutputPreview: React.FC<PreviewProps> = ({ code, err }) => {
   //   }, 50);
   // }, [code]);
 
-  const srcDoc = `
-  <html>
-    <head>
-      <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
-      <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
-    </head>
-    <body>
-        <py-script output="plot">${code}</py-script>
-        <py-env>
-          - numpy
-          - pandas
-          - matplotlib
-        </py-env>
-    </body>
-  </html>
-  `;
+  // const srcDoc = `
+  // <html>
+  //   <head>
+  //     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  //     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+  //   </head>
+  //   <body>
+  //       <div id="plot"></div>
+  //       <py-script output="plot">${code}</py-script>
+  //       <py-env>
+  //         - numpy
+  //         - pandas
+  //         - matplotlib
+  //       </py-env>
+  //   </body>
+  // </html>
+  // `;
+  
+const srcDoc = `
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js"></script>
+    <script defer>
+      async function main() {
+        let pyodide = await loadPyodide({
+          indexURL : "https://cdn.jsdelivr.net/pyodide/v0.20.0/full/"
+        });
+        const output = pyodide.runPython(${JSON.stringify(code)})
+        document.getElementById('root').innerHTML = output;
+      };
+      main();
+      
+    </script>
+  </head>
+
+  <div id="root"></div>
+</html>
+`
+
 
   return (
     <div className="preview-wrapper">
@@ -87,12 +110,13 @@ const OutputPreview: React.FC<PreviewProps> = ({ code, err }) => {
         sandbox="allow-scripts"
         style={{ border: 'none' }}
         srcDoc={srcDoc}
-        width={600}
-        height={300}
+        // height={500}
+        className="preview"
       />
       {err && <div className="preview-error">{err}</div>}
     </div>
   );
 };
+
 
 export default OutputPreview;

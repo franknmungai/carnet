@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import CodeEditor from '../code-editor';
+import CodeEditor, { CodeEditor2 } from '../code-editor';
 import OutputPreview from '../output-preview';
 import './code-cell.css';
 
@@ -21,7 +21,8 @@ const CodeCell = () => {
   return (
     <div className="code-cell" onKeyDown={runCode}>
       <div className="container">
-        <CodeEditor onChange={onChangeHandler} initialValue="" />
+        {/* <CodeEditor onChange={onChangeHandler} initialValue="" /> */}
+        <CodeEditor2/>
         <OutputPreview code={code} err={''} />
       </div>
     </div>

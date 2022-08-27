@@ -1,5 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import MonacoEditor, { OnMount } from '@monaco-editor/react';
+import CodeMirror from '@uiw/react-codemirror';
+import { python } from "@codemirror/lang-python";
+import './code-editor.css';
 
 interface Props {
   initialValue: string;
@@ -27,12 +30,13 @@ const CodeEditor: React.FC<Props> = ({ initialValue, onChange }) => {
       return acc;
     }, 0);
 
-    const height = numberOfLines * 25;
+    const height = numberOfLines * 24;
     setEditorHeight(height < 50 ? 50 : height);
   }, [codeEditorValue]);
 
   return (
-    <MonacoEditor
+    <div className='code-editor-wrapper '>
+      <MonacoEditor
       height={editorHeight}
       width="100%"
       language="python"
@@ -53,9 +57,25 @@ const CodeEditor: React.FC<Props> = ({ initialValue, onChange }) => {
           vertical: 'hidden',
         },
       }}
-      theme="light"
+      theme="vs-dark"
     />
+    </div>
   );
 };
 
 export default CodeEditor;
+
+
+
+export function CodeEditor2() {
+  const onChange = useCallback((value, viewUpdate) => {
+    console.log('value: ', value);
+  }, []);
+  return (
+    <CodeMirror
+      value="print('hello world!');"
+      extensions={[python()]}
+      onChange={onChange}
+    />
+  );
+}
