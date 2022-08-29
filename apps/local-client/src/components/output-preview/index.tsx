@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import './output-preview.css';
 
 interface PreviewProps {
-  code: string;
+  output: string;
   err: string;
 }
 
@@ -52,7 +52,7 @@ const html = `
     </html>
   `;
 
-const OutputPreview: React.FC<PreviewProps> = ({ code, err }) => {
+const OutputPreview: React.FC<PreviewProps> = ({ output, err }) => {
   const iframe = useRef<any>();
 
   // useEffect(() => {
@@ -84,41 +84,16 @@ const OutputPreview: React.FC<PreviewProps> = ({ code, err }) => {
 <html>
   <head>
     <style>
-      #output { font-family: "Consolas"; font-size: 13.5px }
+      #output, #err { font-family: "Consolas"; font-size: 13.5px; }
+      #err { color: 'red'; }
     </style>
   </head>
 
   <body>
-    <div id="output"></div>
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.21.1/full/pyodide.js"></script>
-    <script defer>
-        const output = document.getElementById("output");
-        function addToOutput(s) {
-          output.innerHTML = ">>>  " + s;
-        }
-
-        output.innerHTML = "Initializing..";
-        async function main() {
-          let pyodide = await loadPyodide();
-          output.innerHTML = "Ready!";
-          return pyodide;
-        }
-        let pyodideReadyPromise = main();
-
-        async function evaluatePython() {
-          let pyodide = await pyodideReadyPromise;
-          try {
-            let output = pyodide.runPython(${JSON.stringify(code)});
-            addToOutput(output);
-          } catch (err) {
-            addToOutput(err);
-          }
-        }
-
-        (async () => {
-          evaluatePython();
-        })()
-    </script>
+    <div id="output">
+      ${output}
+    </div>
+    <div id="err">${err}</div>
   </body>
 </html>
 `;
