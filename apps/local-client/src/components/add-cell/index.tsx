@@ -1,25 +1,16 @@
+import { BsCodeSlash, BsMarkdown } from 'react-icons/bs';
 import './add-cell.css';
 
 const AddCell = () => {
   return (
     <div className={`add-cell `}>
       <div className="add-buttons">
-        <button
-          className="button is-rounded is-primary is-small"
-          onClick={() => {}}
-        >
-          <span className="icon is-small">
-            <i className="fas fa-plus" />
-          </span>
+        <button className="button" onClick={() => {}}>
+          <BsCodeSlash />
           <span>Code</span>
         </button>
-        <button
-          className="button is-rounded is-primary is-small"
-          onClick={() => {}}
-        >
-          <span className="icon is-small">
-            <i className="fas fa-plus" />
-          </span>
+        <button className="button" onClick={() => {}}>
+          <BsMarkdown />
           <span>Text</span>
         </button>
       </div>
