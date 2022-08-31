@@ -1,7 +1,8 @@
 .preview-wrapper {
   margin: 1rem 0;
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   width: 100%;
+  background-color: white;
 }
 
 iframe.preview {
@@ -13,4 +14,9 @@ iframe.preview {
   height: auto;
   min-height: 100% !important;
   width: 100%;
+  background-color: white;
+}
+
+.preview-error .preview-error {
+  background-color: white;
 }

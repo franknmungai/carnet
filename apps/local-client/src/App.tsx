@@ -4,7 +4,7 @@ function App() {
   return (
     <div className="App">
       <h1>Carnet</h1>
-      <CodeCell />
+      <CodeCell language="js" />
     </div>
   );
 }
