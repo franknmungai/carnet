@@ -11,7 +11,7 @@ iframe.preview {
   max-height: 40vh; */
 
   position: relative;
-  height: auto;
+  height: fit-content;
   min-height: 0 !important;
   width: 100%;
   background-color: white;
