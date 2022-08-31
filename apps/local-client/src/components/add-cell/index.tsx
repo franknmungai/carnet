@@ -1,3 +1,5 @@
+import './add-cell.css';
+
 const AddCell = () => {
   return (
     <div className={`add-cell `}>
