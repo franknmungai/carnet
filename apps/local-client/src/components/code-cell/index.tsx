@@ -53,8 +53,6 @@ ${userInput.current}
     }
     e.preventDefault();
     (async () => {
-      const { code, err } = await bundle(userInput.current);
-
       const printFn = `
       import _React from 'react';
       import _ReactDOM from 'react-dom';
@@ -71,7 +69,9 @@ ${userInput.current}
           root.innerHTML = value;
         }
       };`;
-      setOutPut(code);
+      const { code, err } = await bundle(`${printFn}\n${userInput.current}`);
+
+      setOutPut(`${code}`);
       setError(err);
     })();
   }, []);
