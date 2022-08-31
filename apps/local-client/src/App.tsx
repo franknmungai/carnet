@@ -1,3 +1,4 @@
+import AddCell from './components/add-cell';
 import CodeCell from './components/code-cell';
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
     <div className="App">
       <h1>Carnet</h1>
       <CodeCell language="js" />
+      <AddCell />
     </div>
   );
 }

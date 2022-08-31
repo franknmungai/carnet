@@ -32,3 +32,9 @@
 .add-cell .add-buttons button {
   margin: 0 20px;
 }
+
+.add-cell .btn {
+  padding: 0.5rem 2rem;
+  box-shadow: 3px 3px 3px 3px #f1f1f1;
+  border-radius: 0.5rem;
+}

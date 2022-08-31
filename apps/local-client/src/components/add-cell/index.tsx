@@ -5,11 +5,11 @@ const AddCell = () => {
   return (
     <div className={`add-cell `}>
       <div className="add-buttons">
-        <button className="button" onClick={() => {}}>
+        <button className="btn" onClick={() => {}}>
           <BsCodeSlash />
           <span>Code</span>
         </button>
-        <button className="button" onClick={() => {}}>
+        <button className="btn" onClick={() => {}}>
           <BsMarkdown />
           <span>Text</span>
         </button>
