@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <h1>Carnet</h1>
-      <CodeCell language="js" />
+      <CodeCell language="py" />
       {/* <AddCell /> */}
     </div>
   );
