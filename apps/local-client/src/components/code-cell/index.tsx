@@ -8,6 +8,7 @@ import OutputPreview from '../output-preview';
 import bundle from '../../bundler';
 
 import './code-cell.css';
+import { PythonProvider, usePython } from 'react-py';
 
 interface Props {
   language: 'js' | 'py';
@@ -19,15 +20,7 @@ const CodeCell: React.FC<Props> = ({ language }) => {
   const [error, setError] = useState('');
   const [codeValue, setCodeValue] = useState('');
 
-  useEffect(() => {
-    // if (language === 'py') {
-    //   (async () => {
-    //     pyodideRef.current = await loadPyodide({
-    //       indexURL: '/static/js/',
-    //     });
-    //   })();
-    // }
-  });
+  const { runPython, stdout, stderr, isLoading, isRunning } = usePython();
 
   const onChangeHandler = useCallback((value: string) => {
     userInput.current = value;
@@ -41,14 +34,8 @@ ${userInput.current}
 
     console.log('user input', userInput.current);
 
-    // try {
-    //   const result = await pyodideRef.current?.runPythonAsync(inputCode);
-    //   setOutPut(result);
-    // } catch (error: any) {
-    //   setError(error);
-    // }
-
     setOutPut(inputCode);
+    runPython(userInput.current);
   };
 
   const runJS = useCallback((e: React.KeyboardEvent) => {
@@ -86,7 +73,6 @@ ${userInput.current}
   }, []);
 
   const formatJS = (code: string) => {
-    // format that value
     const formatted = prettier
       .format(code, {
         parser: 'babel',
@@ -102,27 +88,40 @@ ${userInput.current}
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.ctrlKey && e.key.toLowerCase() === 'p') {
       e.preventDefault();
+      runPython(userInput.current);
     }
-
-    runPy();
   };
-  return (
-    <div className="code-cell" onKeyDown={handleKeyPress}>
-      <div className="controls">
-        <button className="run-code-btn" onClick={runPy}>
-          <BsFillPlayFill size={20} color="slateblue" />
-        </button>
-      </div>
 
-      <div className="container">
-        <CodeEditor
-          onChange={onChangeHandler}
-          initialValue={codeValue}
-          language="py"
-        />
-        <OutputPreview output={output} err={error} language="py" />
+  // const packages = {
+  //   micropip: ['matplotlib', 'numpy'],
+  // };
+  const packages = {
+    official: ['asciitree'],
+    micropip: ['python-cowsay'],
+  };
+
+  return (
+    <PythonProvider packages={packages}>
+      <div className="code-cell" onKeyDown={handleKeyPress}>
+        <div className="controls">
+          <button
+            className="run-code-btn"
+            onClick={() => runPython(userInput.current)}
+          >
+            <BsFillPlayFill size={20} color="slateblue" />
+          </button>
+        </div>
+
+        <div className="container">
+          <CodeEditor
+            onChange={onChangeHandler}
+            initialValue={codeValue}
+            language="py"
+          />
+          <OutputPreview output={stdout} err={stderr} language="py" />
+        </div>
       </div>
-    </div>
+    </PythonProvider>
   );
 };
 

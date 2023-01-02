@@ -5,7 +5,7 @@
   background-color: white;
 }
 
-iframe.preview {
+.preview {
   /* height: fit-content;
   overflow-y: hidden;
   max-height: 40vh; */
@@ -15,8 +15,14 @@ iframe.preview {
   min-height: 0 !important;
   width: 100%;
   background-color: white;
+  padding: 0 1rem;
+  font-family: consolas, monospace;
 }
 
-.preview-error .preview-error {
+.preview-error {
   background-color: white;
+  color: rgba(220, 20, 60, 0.8);
+  font-family: monospace;
+  font-size: 14px;
+  padding: 0 0.8rem;
 }
