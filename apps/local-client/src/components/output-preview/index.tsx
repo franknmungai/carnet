@@ -11,15 +11,6 @@ const OutputPreview: React.FC<PreviewProps> = ({ output, err, language }) => {
 
   return (
     <div className="preview-wrapper">
-      {/* <iframe
-        title="preview"
-        // ref={iframe}
-        sandbox="allow-scripts"
-        style={{ border: 'none' }}
-        srcDoc={output}
-        className="preview"
-        // height={500}
-      /> */}
       <pre className="preview">
         <code>{output}</code>
         {err && <div className="preview-error">{err}</div>}

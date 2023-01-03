@@ -20,7 +20,14 @@ const CodeCell: React.FC<Props> = ({ language }) => {
   const [error, setError] = useState('');
   const [codeValue, setCodeValue] = useState('');
 
-  const { runPython, stdout, stderr, isLoading, isRunning } = usePython();
+  const packages = {
+    official: ['asciitree'],
+    micropip: ['python-cowsay'],
+  };
+
+  const { runPython, stdout, stderr, isLoading, isRunning } = usePython({
+    packages,
+  });
 
   const onChangeHandler = useCallback((value: string) => {
     userInput.current = value;
@@ -95,13 +102,9 @@ ${userInput.current}
   // const packages = {
   //   micropip: ['matplotlib', 'numpy'],
   // };
-  const packages = {
-    official: ['asciitree'],
-    micropip: ['python-cowsay'],
-  };
 
   return (
-    <PythonProvider packages={packages}>
+    <PythonProvider>
       <div className="code-cell" onKeyDown={handleKeyPress}>
         <div className="controls">
           <button className="run-code-btn" onClick={() => runPy()}>

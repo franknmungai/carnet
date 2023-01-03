@@ -31,9 +31,7 @@ function timeConversion(s) {
     }
   }
 
-  console.log({ tokens, hours24 });
-
   const convertedTime = [hours24, ...tokens.slice(1)].join(':');
-  return convertedTime.replace(/[AM|PM]/g, '');
+  return convertedTime.replace(/[am,AM|pm,PM]/g, '');
 }
-console.log(timeConversion('12:15:00PM'));
+console.log(timeConversion('12:15:00pm'));

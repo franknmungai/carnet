@@ -6,10 +6,6 @@
 }
 
 .preview {
-  /* height: fit-content;
-  overflow-y: hidden;
-  max-height: 40vh; */
-
   position: relative;
   height: fit-content;
   min-height: 0 !important;
