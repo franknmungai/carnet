@@ -34,7 +34,6 @@ ${userInput.current}
 
     console.log('user input', userInput.current);
 
-    setOutPut(inputCode);
     runPython(userInput.current);
   };
 
@@ -88,7 +87,8 @@ ${userInput.current}
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.ctrlKey && e.key.toLowerCase() === 'p') {
       e.preventDefault();
-      runPython(userInput.current);
+      // runPython(userInput.current);
+      runPy();
     }
   };
 
@@ -104,10 +104,7 @@ ${userInput.current}
     <PythonProvider packages={packages}>
       <div className="code-cell" onKeyDown={handleKeyPress}>
         <div className="controls">
-          <button
-            className="run-code-btn"
-            onClick={() => runPython(userInput.current)}
-          >
+          <button className="run-code-btn" onClick={() => runPy()}>
             <BsFillPlayFill size={20} color="slateblue" />
           </button>
         </div>

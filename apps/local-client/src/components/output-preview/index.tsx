@@ -20,8 +20,10 @@ const OutputPreview: React.FC<PreviewProps> = ({ output, err, language }) => {
         className="preview"
         // height={500}
       /> */}
-      <div className="preview">{output}</div>
-      {err && <div className="preview-error">{err}</div>}
+      <pre className="preview">
+        <code>{output}</code>
+        {err && <div className="preview-error">{err}</div>}
+      </pre>
     </div>
   );
 };
