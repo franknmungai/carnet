@@ -1,8 +1,9 @@
 .add-cell {
   position: relative;
   opacity: 0;
-  transition: opacity 0.3s ease-in 0.1s;
-  margin: 8px 0;
+  transition: opacity 0.2s ease-in 0.1s;
+  padding: 0 2.5rem;
+  margin: 2rem 0;
 }
 
 .add-cell:hover {
@@ -19,7 +20,7 @@
   bottom: 50%;
   right: 2.5%;
   left: 2.5%;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   width: 95%;
   z-index: -1;
 }
@@ -34,7 +35,20 @@
 }
 
 .add-cell .btn {
-  padding: 0.5rem 2rem;
-  box-shadow: 3px 3px 3px 3px #f1f1f1;
-  border-radius: 0.5rem;
+  padding: 0.5rem 1.8rem;
+  box-shadow: 2px 2px 1px 1px #f1f1f1;
+  border-radius: 0.4rem;
+  background-color: white;
+  outline: none;
+  border: 1px #f3f3f3 solid;
+  font-size: 0.75rem;
+  letter-spacing: 1.2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.add-cell .btn:hover {
+  color: slateblue;
 }

@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <h1>Carnet</h1>
       <CodeCell language="py" />
-      {/* <AddCell /> */}
+      <AddCell />
     </div>
   );
 }

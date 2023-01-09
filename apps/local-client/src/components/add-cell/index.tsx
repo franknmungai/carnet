@@ -3,14 +3,14 @@ import './add-cell.css';
 
 const AddCell = () => {
   return (
-    <div className={`add-cell `}>
+    <div className="add-cell">
       <div className="add-buttons">
         <button className="btn" onClick={() => {}}>
-          <BsCodeSlash />
+          <BsCodeSlash size={18} /> {'  '}
           <span>Code</span>
         </button>
         <button className="btn" onClick={() => {}}>
-          <BsMarkdown />
+          <BsMarkdown size={18} /> {'  '}
           <span>Text</span>
         </button>
       </div>

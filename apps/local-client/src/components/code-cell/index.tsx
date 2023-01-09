@@ -21,7 +21,7 @@ const CodeCell: React.FC<Props> = ({ language }) => {
   const [codeValue, setCodeValue] = useState('');
 
   const packages = {
-    official: ['asciitree'],
+    official: ['asciitree', 'matplotlib', 'numpy'],
     micropip: ['python-cowsay'],
   };
 

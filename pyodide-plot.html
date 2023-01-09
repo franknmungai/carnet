@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <!-- Load pyodide -->
+    <!-- <script src="https://pyodide.cdn.iodide.io/pyodide.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.21.1/full/pyodide.js"></script>
+
+    <!-- Load matplotlib -->
+    <script>
+      pyodide.loadPackage(['matplotlib']);
+    </script>
+
+    <style>
+      .container {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Container for the plot -->
+    <div id="container"></div>
+
+    <!-- Script to generate and display the plot -->
+    <script>
+      const plt = pyodide.runPython(`
+        import matplotlib.pyplot as plt
+
+        # Generate a plot
+        plt.plot([1, 2, 3, 4])
+        plt.ylabel('some numbers')
+
+        # Convert the plot to a HTML canvas element
+        from matplotlib.backends.backend_webagg_core import FigureCanvasWebAgg
+        canvas = FigureCanvasWebAgg(plt.gcf())
+        plt.close()
+
+        # Return the canvas
+        canvas
+      `);
+
+      // Add the canvas to the HTML document
+      document.getElementById('container').appendChild(plt.to_html());
+    </script>
+  </body>
+</html>

@@ -15,6 +15,8 @@
     <br />
     <div>Output:</div>
     <textarea id="output" style="width: 100%" rows="6" disabled></textarea>
+    <div id="container">hello world</div>
+    <img src="" alt="" id="pyplotfigure" />
 
     <script>
       const output = document.getElementById('output');
@@ -28,7 +30,9 @@
       // init Pyodide
       async function main() {
         let pyodide = await loadPyodide();
+        await pyodide.loadPackage(['matplotlib']);
         output.value += 'Ready!\n';
+
         return pyodide;
       }
       let pyodideReadyPromise = main();
@@ -46,8 +50,35 @@
           let output = pyodide.runPython(inputCode);
 
           addToOutput(output);
+          await drawPlot();
         } catch (err) {
           addToOutput(err);
+        }
+      }
+
+      async function drawPlot() {
+        console.log('Drawing plot');
+        let pyodide = await pyodideReadyPromise;
+        try {
+          const plt = pyodide.runPython(`
+import matplotlib.pyplot as plt
+import pyodide
+import io, base64
+
+fig, ax = plt.subplots()
+ax.plot([1,3,2])
+buf = io.BytesIO()
+fig.savefig(buf, format='png')
+buf.seek(0)
+img_str = 'data:image/png;base64,' + base64.b64encode(buf.read()).decode('UTF-8')
+
+plt.show()
+`);
+
+          // document.getElementById('pyplotfigure').src = pyodide.globals.img_str;
+          // console.log('img_str', globals.img_str);
+        } catch (error) {
+          console.log({ error });
         }
       }
     </script>
