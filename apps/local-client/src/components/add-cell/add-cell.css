@@ -2,8 +2,8 @@
   position: relative;
   opacity: 0;
   transition: opacity 0.2s ease-in 0.1s;
-  padding: 0 2.5rem;
-  margin: 2rem 0;
+  padding: 2rem 2.5rem;
+  margin: 0;
 }
 
 .add-cell:hover {
@@ -36,9 +36,10 @@
 
 .add-cell .btn {
   padding: 0.5rem 1.8rem;
-  box-shadow: 2px 2px 1px 1px #f1f1f1;
+  box-shadow: 2px 2px 1px 1px #f0f0f0;
   border-radius: 0.4rem;
   background-color: white;
+  color: rgba(0, 0, 0, 0.8);
   outline: none;
   border: 1px #f3f3f3 solid;
   font-size: 0.75rem;
@@ -47,8 +48,13 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  transition: all 0.2s ease-in;
 }
 
 .add-cell .btn:hover {
   color: slateblue;
+}
+
+.add-cell .btn span {
+  margin-left: 0.5rem;
 }

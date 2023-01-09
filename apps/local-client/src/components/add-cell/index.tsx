@@ -6,11 +6,11 @@ const AddCell = () => {
     <div className="add-cell">
       <div className="add-buttons">
         <button className="btn" onClick={() => {}}>
-          <BsCodeSlash size={18} /> {'  '}
+          <BsCodeSlash size={18} />
           <span>Code</span>
         </button>
         <button className="btn" onClick={() => {}}>
-          <BsMarkdown size={18} /> {'  '}
+          <BsMarkdown size={18} />
           <span>Text</span>
         </button>
       </div>
