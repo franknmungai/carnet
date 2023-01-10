@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type CellType = 'py' | 'js' | 'text';
+type CellType = 'py' | 'js' | 'md';
 interface Cell {
   id: string;
   type: CellType;
@@ -19,9 +19,16 @@ interface InsertCellAction {
   type: CellType;
 }
 
+const firstCell: Cell = {
+  content: '#Carnet',
+  type: 'md',
+  id: generateRandomId(),
+};
 const initialState: CellState = {
-  order: [],
-  data: {},
+  order: [firstCell.id],
+  data: {
+    [firstCell.id]: firstCell,
+  },
 };
 
 export const cellsSlice = createSlice({
@@ -55,9 +62,9 @@ export const cellsSlice = createSlice({
   },
 });
 
-const generateRandomId = () => {
+function generateRandomId() {
   return Math.random().toString(36).slice(2);
-};
+}
 
 export default cellsSlice.reducer;
 export const { insertCellAfter } = cellsSlice.actions;
