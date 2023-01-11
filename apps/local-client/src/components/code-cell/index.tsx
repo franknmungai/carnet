@@ -117,6 +117,7 @@ ${userInput.current}
             onChange={onChangeHandler}
             initialValue={codeValue}
             language="py"
+            
           />
           <OutputPreview output={stdout} err={stderr} language="py" />
         </div>

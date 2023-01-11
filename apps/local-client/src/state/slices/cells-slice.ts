@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type CellType = 'py' | 'js' | 'md';
+
 interface Cell {
   id: string;
   type: CellType;
   content: string;
 }
+
 interface CellState {
   order: string[];
   data: {
@@ -20,8 +22,8 @@ interface InsertCellAction {
 }
 
 const firstCell: Cell = {
-  content: '#Carnet',
-  type: 'md',
+  content: '',
+  type: 'js',
   id: generateRandomId(),
 };
 const initialState: CellState = {

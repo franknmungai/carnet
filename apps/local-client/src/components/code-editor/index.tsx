@@ -20,7 +20,7 @@ const CodeEditor: React.FC<Props> = ({ initialValue, onChange, language }) => {
   }, [language]);
   return (
     <CodeMirror
-      value={initialValue + '\n'}
+      value={initialValue}
       extensions={extensions}
       onChange={onChange}
     />
