@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import './output-preview.css';
 
 interface PreviewProps {
@@ -8,6 +9,16 @@ interface PreviewProps {
 
 const OutputPreview: React.FC<PreviewProps> = ({ output, err, language }) => {
   console.log({ output, err });
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  useEffect(() => {
+    window.addEventListener('message', (ev: any) => {
+      if (ev.data.type === 'height') {
+        if (iframeRef.current) {
+          iframeRef.current.height = ev.data.message;
+        }
+      }
+    });
+  }, []);
 
   return (
     <div className="preview-wrapper">
@@ -15,7 +26,12 @@ const OutputPreview: React.FC<PreviewProps> = ({ output, err, language }) => {
         <code>{output}</code>
         {err && <div className="preview-error">{err}</div>}
 
-        <iframe srcDoc={pyDoc} sandbox="allow-scripts" className='output'></iframe>
+        <iframe
+          srcDoc={pyDoc}
+          sandbox="allow-scripts"
+          className="output"
+          ref={iframeRef}
+        ></iframe>
       </pre>
     </div>
   );
@@ -55,7 +71,6 @@ const jsDoc = `
 </html>
 `;
 
-
 const pyDoc = `
 <html>
 <head>
@@ -73,7 +88,7 @@ const pyDoc = `
       }
   </style>
 </head>
-<body></body>
+<body id="output-body"></body>
 <script type="text/javascript" defer>
   async function main() {
     let pyodide = await loadPyodide();
@@ -110,12 +125,15 @@ vmin=-abs(Z).max(),
 plt.show()
 \`);
   }
-  main();
+  main().then(() => {
+    window.parent.postMessage({ type: 'height', message: document.querySelector('canvas').height }, "*")
+  });
 </script>
 
-<script>
-  document.querySelector('body').height = document.querySelector('canvas')?.height || 100;
+<script defer>
+  document.querySelector('html').style.height = document.querySelector('canvas')?.height;
+  
 </script>
 <html></html>
 </html>
-`
+`;
